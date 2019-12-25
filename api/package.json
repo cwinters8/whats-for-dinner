@@ -1,0 +1,25 @@
+{
+  "name": "whats-for-dinner-api",
+  "version": "1.0.0",
+  "description": "API for new meal planning app \"What's for dinner?\"",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cwinters8/whats-for-dinner.git"
+  },
+  "author": "Clark Winters",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cwinters8/whats-for-dinner/issues"
+  },
+  "homepage": "https://github.com/cwinters8/whats-for-dinner#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
