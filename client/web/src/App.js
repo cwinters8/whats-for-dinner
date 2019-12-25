@@ -22,7 +22,7 @@ class App extends React.Component {
               <li>Grocery List Builder</li>
             </ul>
           </div>
-          <img className="spices" src={spices} alt="Lunch Table"/>
+          <img className="spices" src={spices} alt="Spices"/>
         </div>
       </div>
     );
