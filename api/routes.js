@@ -1,4 +1,5 @@
 const express = require('express');
+const {body, validationResult} = require('express-validator');
 const mongo = require('mongodb').MongoClient;
 const config = require('./config.json');
 
@@ -14,7 +15,7 @@ mongo.connect(`${config.dbHost}/${config.dbName}`, {useUnifiedTopology: true}, (
 
 // main /api route
 router.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send("What's for dinner?");
 });
 
 // get all recipes
@@ -25,13 +26,32 @@ router.get('/recipes', (req, res) => {
   });
 });
 
+// helper array to validate recipe POST and PUT requests
+const validateRecipe = [
+  body('name').notEmpty(),
+  body('ingredients').isArray({min: 1})
+];
+
+// validation helper function
+const validate = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    console.error(errors.array());
+    errors.status = 400;
+    errors.message = errors.array();
+    next(errors);
+  } else {
+    next();
+  }
+}
+
 // create a recipe
-router.post('/recipes/new', (req, res) => {
+router.post('/recipes/new', validateRecipe, validate, (req, res) => {
   const recipe = {
     name: req.body.name,
     description: req.body.description || null,
     ingredients: req.body.ingredients,
-    directions: req.body.directions,
+    directions: req.body.directions || null,
     timeInMinutes: req.body.timeInMinutes || null
   }
   db.collection('recipes').insertOne(recipe, (err, record) => {
