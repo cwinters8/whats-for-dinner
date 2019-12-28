@@ -1,6 +1,7 @@
 const express = require('express');
 const {body, validationResult} = require('express-validator');
 const mongo = require('mongodb').MongoClient;
+const ObjectId = require('mongodb').ObjectID;
 const config = require('./config.json');
 
 const router = express.Router();
@@ -8,10 +9,15 @@ const router = express.Router();
 // database connection
 let db;
 mongo.connect(`${config.dbHost}/${config.dbName}`, {useUnifiedTopology: true}, (err, database) => {
-  if (err) throw err;
+  throwErr(err);
   db = database.db();
   console.log('DB connection successful');
 });
+
+// helper function to throw an error
+const throwErr = err => {
+  if (err) throw err;
+}
 
 // main /api route
 router.get('/', (req, res) => {
@@ -21,7 +27,16 @@ router.get('/', (req, res) => {
 // get all recipes
 router.get('/recipes', (req, res) => {
   db.collection('recipes').find({}).toArray((err, result) => {
-    if (err) throw err;
+    throwErr(err);
+    res.send(JSON.stringify(result));
+  });
+});
+
+// get one recipe
+router.get('/recipes/:id', (req, res) => {
+  const query = {_id: new ObjectId(req.params.id)};
+  db.collection('recipes').findOne(query, (err, result) => {
+    throwErr(err);
     res.send(JSON.stringify(result));
   });
 });
@@ -55,7 +70,7 @@ router.post('/recipes/new', validateRecipe, validate, (req, res) => {
     timeInMinutes: req.body.timeInMinutes || null
   }
   db.collection('recipes').insertOne(recipe, (err, record) => {
-    if (err) throw err;
+    throwErr(err);
     res.status(200);
     res.send({
       status: 'New recipe document inserted successfully',
@@ -66,10 +81,16 @@ router.post('/recipes/new', validateRecipe, validate, (req, res) => {
 
 // delete a recipe
 router.delete('/recipes/:id', (req, res) => {
-  db.collection('recipes').deleteOne({_id: req.params.id}, (err, response) => {
+  const query = {_id: new ObjectId(req.params.id)};
+  db.collection('recipes').deleteOne(query, (err, response) => {
     if (err) next(err);
-    res.status(200);
-    res.send({status: `Recipe ${req.params.id} deleted.`});
+    if (response.deletedCount > 0) {
+      res.status(200);
+      res.send({status: `Recipe ${req.params.id} deleted.`});
+    } else {
+      res.status(404);
+      res.send({status: `Recipe not found and so could not be deleted.`});
+    }
   });
 });
 
