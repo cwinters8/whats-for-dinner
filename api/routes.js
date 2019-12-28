@@ -1,10 +1,25 @@
 const express = require('express');
+const jwt = require('express-jwt');
+const jwks = require('jwks-rsa');
 const {body, validationResult} = require('express-validator');
 const mongo = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectID;
 const config = require('./config.json');
 
 const router = express.Router();
+
+// authentication
+const auth0 = 'https://dev-whatsfordinner.auth0.com';
+const jwtCheck = jwt({
+  secret: jwks.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: `${auth0}/.well-known/jwks.json`
+  }),
+  issuer: `${auth0}/`,
+  algorithms: ['RS256']
+});
 
 // database connection
 let db;
@@ -61,7 +76,7 @@ const validate = (req, res, next) => {
 }
 
 // create a recipe
-router.post('/recipes/new', validateRecipe, validate, (req, res) => {
+router.post('/recipes/new', jwtCheck, validateRecipe, validate, (req, res) => {
   const recipe = {
     name: req.body.name,
     description: req.body.description || null,
@@ -80,7 +95,7 @@ router.post('/recipes/new', validateRecipe, validate, (req, res) => {
 });
 
 // delete a recipe
-router.delete('/recipes/:id', (req, res) => {
+router.delete('/recipes/:id', jwtCheck, (req, res) => {
   const query = {_id: new ObjectId(req.params.id)};
   db.collection('recipes').deleteOne(query, (err, response) => {
     if (err) next(err);
