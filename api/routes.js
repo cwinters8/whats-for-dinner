@@ -64,4 +64,13 @@ router.post('/recipes/new', validateRecipe, validate, (req, res) => {
   });
 });
 
+// delete a recipe
+router.delete('/recipes/:id', (req, res) => {
+  db.collection('recipes').deleteOne({_id: req.params.id}, (err, response) => {
+    if (err) next(err);
+    res.status(200);
+    res.send({status: `Recipe ${req.params.id} deleted.`});
+  });
+});
+
 module.exports = router;
