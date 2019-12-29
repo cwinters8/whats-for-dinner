@@ -4,6 +4,9 @@
   --main-bg-color: #9B452E;
   --main-text-color: #EAA963;
   --heading-font: 'Pacifico', cursive;
+}
+
+body {
   background-color: var(--main-bg-color);
 }
 
