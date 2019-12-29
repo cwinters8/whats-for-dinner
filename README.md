@@ -23,6 +23,15 @@ npm install
 npm run seed
 ```
 
+Before you start the app, you'll need to create a `config.json` file that contains the following information (this will expand in the future as we need to add environments and authentication).
+Example for current config requirements:
+```
+{
+  "dbHost": "mongodb://localhost:27017",
+  "dbName": "whats-for-dinner"
+}
+```
+
 Then you should be able to start the app
 ```bash
 npm start
