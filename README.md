@@ -31,7 +31,7 @@ npm start
 ### Web Client
 Go to the client directory, then install dependencies and start the app.
 ```bash
-cd client
+cd client/web
 npm install
 npm start
 ```
