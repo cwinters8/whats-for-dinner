@@ -7,7 +7,7 @@ const collections = [
   'calendars'
 ];
 
-mongo.connect(`${config.dbHost}/${config.dbName}`, (err, db) => {
+mongo.connect(`${config.dbHost}/${config.dbName}`, {useUnifiedTopology: true}, (err, db) => {
   if (err) throw err;
   console.log('Database connected!');
   for (let i=0; i < collections.length; i++) {
