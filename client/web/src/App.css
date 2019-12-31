@@ -3,6 +3,7 @@
 :root {
   --main-bg-color: #9B452E;
   --main-text-color: #EAA963;
+  --link-hover-text-color: rgb(226, 132, 32);
   --heading-font: 'Pacifico', cursive;
 }
 
@@ -31,6 +32,10 @@ header {
   color: var(--main-text-color);
 }
 
+.nav-link:hover {
+  color: var(--link-hover-text-color);
+}
+
 .App {
   color: var(--main-text-color);
   margin-left: 20px;
@@ -49,6 +54,15 @@ header {
 
 .App h1, .App h2 {
   font-family: var(--heading-font);
+}
+
+.App h1 > a {
+  color: var(--main-text-color);
+}
+
+.App h1 > a:hover {
+  text-decoration: none;
+  color: var(--link-hover-text-color);
 }
 
 /* can probably get rid of everything below here */
