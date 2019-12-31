@@ -10,6 +10,26 @@ body {
   background-color: var(--main-bg-color);
 }
 
+header {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 2fr 5fr;
+}
+
+.nav-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1.5fr 1fr 1fr 1fr;
+}
+
+.sign-up {
+  justify-self: right;
+}
+
+.nav-link {
+  font-size: x-large;
+  font-family: var(--heading-font);
+}
+
 .App {
   color: var(--main-text-color);
   margin-left: 20px;

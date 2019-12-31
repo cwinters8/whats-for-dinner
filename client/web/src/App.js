@@ -1,4 +1,5 @@
 import React from 'react';
+import {Nav, NavLink} from 'reactstrap';
 import './App.css';
 
 // images
@@ -10,6 +11,16 @@ class App extends React.Component {
       <div className="App">
         <header>
           <h1>What's for Dinner?</h1>
+          <div>
+            <Nav className="nav-grid">
+              <NavLink>Meal Planner</NavLink>
+              <NavLink>Recipes</NavLink>
+              <NavLink>Grocery List</NavLink>
+              <NavLink>Pantry</NavLink>
+              <NavLink className="sign-up">Sign Up</NavLink>
+              <NavLink>Sign In</NavLink>
+            </Nav>
+          </div>
         </header>
         <div className="grid">
           <div>
