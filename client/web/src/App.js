@@ -13,12 +13,12 @@ class App extends React.Component {
           <h1>What's for Dinner?</h1>
           <div>
             <Nav className="nav-grid">
-              <NavLink>Meal Planner</NavLink>
-              <NavLink>Recipes</NavLink>
-              <NavLink>Grocery List</NavLink>
-              <NavLink>Pantry</NavLink>
-              <NavLink className="sign-up">Sign Up</NavLink>
-              <NavLink>Sign In</NavLink>
+              <NavLink href="/mealplanner">Meal Planner</NavLink>
+              <NavLink href="/recipes">Recipes</NavLink>
+              <NavLink href="/grocerylist">Grocery List</NavLink>
+              <NavLink href="/pantry">Pantry</NavLink>
+              <NavLink href="/signup" className="sign-up">Sign Up</NavLink>
+              <NavLink href="/signin">Sign In</NavLink>
             </Nav>
           </div>
         </header>
