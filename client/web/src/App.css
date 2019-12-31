@@ -28,6 +28,7 @@ header {
 .nav-link {
   font-size: x-large;
   font-family: var(--heading-font);
+  color: var(--main-text-color);
 }
 
 .App {
