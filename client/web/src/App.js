@@ -7,7 +7,29 @@ import './App.css';
 import Main from './Components/Main';
 import Recipes from './Components/Recipes';
 
+const api = 'http://localhost:5000/api';
+
 class App extends React.Component {
+  // helper function for retrieving data
+  runFetch = (path, callback, method="GET", headers={}, body) => {
+    // set Content-Type header if a body is being passed in
+    if (body) {
+      headers['Content-Type'] = 'application/json';
+    }
+    fetch(`${api}/${path}`, {
+      method: method, 
+      headers: new Headers(headers), 
+      body: JSON.stringify(body)
+    }).then(response => {
+      if (response.status === 500) {
+        window.location.href = '/error';
+      }
+      response.json().then(data => {
+        callback(data, response.status);
+      });
+    });
+  }
+
   render() { 
     return (
       <div className="App">
@@ -29,7 +51,7 @@ class App extends React.Component {
             {/* Default */}
             <Route exact path="/" render={() => <Main />} />
             {/* Recipes */}
-            <Route path="/recipes" render={() => <Recipes />} />
+            <Route path="/recipes" render={() => <Recipes runFetch={this.runFetch} />} />
           </Switch>
         </BrowserRouter>
       </div>
