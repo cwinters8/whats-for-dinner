@@ -6,6 +6,7 @@ import './App.css';
 // components
 import Main from './Components/Main';
 import Recipes from './Components/Recipes';
+import Recipe from './Components/Recipe';
 
 const api = 'http://localhost:5000/api';
 
@@ -51,7 +52,9 @@ class App extends React.Component {
             {/* Default */}
             <Route exact path="/" render={() => <Main />} />
             {/* Recipes */}
-            <Route path="/recipes" render={() => <Recipes runFetch={this.runFetch} />} />
+            <Route exact path="/recipes" render={() => <Recipes runFetch={this.runFetch} />} />
+            {/* Single recipe */}
+            <Route path="/recipes/:id" render={({match}) => <Recipe recipeId={match.params.id} runFetch={this.runFetch} />} />
           </Switch>
         </BrowserRouter>
       </div>

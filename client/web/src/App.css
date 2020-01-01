@@ -52,7 +52,7 @@ header {
   border-radius: 20px;
 }
 
-.App h1, .App h2 {
+header h1, header h2 {
   font-family: var(--heading-font);
 }
 
@@ -63,6 +63,12 @@ a {
 a:hover {
   text-decoration: none;
   color: var(--link-hover-text-color);
+}
+
+.recipe-container {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 30% 70%;
 }
 
 /* can probably get rid of everything below here */
