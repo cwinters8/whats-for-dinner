@@ -56,11 +56,11 @@ header {
   font-family: var(--heading-font);
 }
 
-.App h1 > a {
+a {
   color: var(--main-text-color);
 }
 
-.App h1 > a:hover {
+a:hover {
   text-decoration: none;
   color: var(--link-hover-text-color);
 }

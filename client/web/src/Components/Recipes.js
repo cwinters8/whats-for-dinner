@@ -20,7 +20,7 @@ class Recipes extends React.Component {
   render() {
     return (
       <div>
-        <ul>{this.state.recipes.map(recipe => <li key={recipe._id}>{recipe.name}</li>)}</ul>
+        <ul>{this.state.recipes.map(recipe => <li key={recipe._id}><a href={`/recipes/${recipe._id}`}>{recipe.name}</a></li>)}</ul>
       </div>
     )
   }
